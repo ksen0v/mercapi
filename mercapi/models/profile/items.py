@@ -35,3 +35,9 @@ class SellerItem(ResponseModel):
 @dataclass
 class Items(ResponseModel):
     items: List[SellerItem]
+
+@dataclass
+class ExchangeRate(ResponseModel):
+    currency_code: str
+    digit: int
+    rate: float
