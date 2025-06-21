@@ -12,6 +12,21 @@ Mercapi is a Python wrapper for *mercari.jp* API.
 It's capable of producing HTTP requests implementing security mechanisms employed in native *mercari.jp* web app.
 Requests and responses are mapped to custom classes with type-hinting and documentation.
 
+## What's new in this for?
+
+Added new method exchange_rate, example:
+
+```python
+from mercapi import Mercapi
+
+
+m = Mercapi()
+rate_data = await m.exchange_rate(country_code="RU") 
+
+print(f'Region 'RU' - Exchange Rate {rate_data.rate} - Currency symbol {rate_data.currency_code})
+
+```
+
 ## Quickstart
 
 First, install the `mercapi` package using the package manager of your choice.
