@@ -8,7 +8,7 @@ from ecdsa import SigningKey, NIST256p
 from httpx import Request
 
 from mercapi.mapping import map_to_class
-from mercapi.models import SearchResults, Item, Profile, Items
+from mercapi.models import SearchResults, Item, Profile, Items, ExchangeRate
 from mercapi.models.base import ResponseModel
 from mercapi.requests import SearchRequestData
 from mercapi.util import jwt
@@ -214,6 +214,32 @@ class Mercapi:
                 "seller_id": profile_id,
                 "limit": 30,
                 "status": "on_sale,trading,sold_out",
+            },
+            headers=self._headers,
+        )
+        return self._sign_request(req)
+    
+    async def exchange_rate(self, country_code: str) -> Optional[ExchangeRate]:
+        """Fetch conversition_rate by specified country.
+        This method reflects the action of getting exchange rate on website.
+
+        :param country_code: country code (example: RU)
+        :return: list of items sold by specified seller
+        """
+        res = await self._client.send(self._exchange_rate(country_code))
+        if res.status_code == 404:
+            return None
+
+        body = res.json()
+        return map_to_class(body, ExchangeRate)
+
+
+    def _exchange_rate(self, country_code: str) -> Request:
+        req = Request(
+            "GET",
+            "https://api.mercari.jp/v2/getCurrencyConversionRate/country",
+            params={
+                'country_code': country_code
             },
             headers=self._headers,
         )
