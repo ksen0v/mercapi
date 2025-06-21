@@ -2,7 +2,7 @@ import logging
 from datetime import datetime
 from typing import NamedTuple, List, Dict, TypeVar, Type, Any, Optional, Callable
 
-from mercapi.models import Item, Items, Profile, SearchResults, SearchResultItem
+from mercapi.models import Item, Items, Profile, SearchResults, SearchResultItem, ExchangeRate
 from mercapi.models.common import ItemCategory, ItemCategorySummary
 from mercapi.models.item.data import (
     Seller,
@@ -92,6 +92,14 @@ class Extractors:
 R = ResponseMappingDefinition
 
 mapping_definitions: Dict[Type[ResponseModel], ResponseMappingDefinition] = {
+    ExchangeRate: R(
+        required_properties=[
+            ResponseProperty("rate", "rate", Extractors.get("rate")),
+            ResponseProperty("digit", "digit", Extractors.get("digit")),
+            ResponseProperty("currencyCode", "currency_code", Extractors.get("currencyCode")),
+        ],
+        optional_properties=[],
+    ),
     Item: R(
         required_properties=[
             ResponseProperty("id", "id_", Extractors.get("id")),
