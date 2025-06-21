@@ -12,7 +12,7 @@ Mercapi is a Python wrapper for *mercari.jp* API.
 It's capable of producing HTTP requests implementing security mechanisms employed in native *mercari.jp* web app.
 Requests and responses are mapped to custom classes with type-hinting and documentation.
 
-## What's new in this for?
+## What's new in this FORK?
 
 Added new method exchange_rate, example:
 
