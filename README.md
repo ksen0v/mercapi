@@ -23,7 +23,7 @@ from mercapi import Mercapi
 m = Mercapi()
 rate_data = await m.exchange_rate(country_code="RU") 
 
-print(f'Region 'RU' - Exchange Rate {rate_data.rate} - Currency symbol {rate_data.currency_code})
+print(f"Region 'RU' - Exchange Rate {rate_data.rate} - Currency symbol {rate_data.currency_code}")
 
 ```
 
